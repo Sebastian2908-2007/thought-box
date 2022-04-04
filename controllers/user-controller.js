@@ -7,7 +7,10 @@
          User.find({})
          .populate({
              path:'thoughts',
-             path: 'friends',
+             select: '-__v'
+         })
+         .populate({
+             path:'friends',
              select: '-__v'
          })
          .select('-__v')
@@ -23,6 +26,9 @@ getUserById({params},res) {
    User.findOne({_id: params.id})
    .populate({
        path: 'thoughts',
+       select: '-__v'
+   })
+   .populate({
        path: 'friends',
        select: '-__v'
    })
