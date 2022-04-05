@@ -7,7 +7,7 @@
          User.find({})
          .populate({
              path:'thoughts',
-             select: '-__v'
+             select: '-__v',
          })
          .populate({
              path:'friends',

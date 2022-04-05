@@ -89,19 +89,17 @@ deleteReaction({params}, res) {
 },
 
 deleteThought({ params }, res) {
-    console.log(params.thoughtId, 'this works');
-    console.log(params.userId,'this does not');
     Thought.findOneAndDelete({_id: params.thoughtId})
     .then(dbThoughtData => {
         if(!dbThoughtData) {
             res.status(404).json({message:'no thought with that id!'});
             return;
         }
-        console.log(dbThoughtData);
        return User.findOneAndUpdate(
-           { id: params.userId },
+           // its important in mongoose for id to be declared __id
+           { _id: params.userId },
            { $pull: { thoughts: params.thoughtId }},
-           { new: true }
+           { new: true}
             );
     })
     .then(dbUserData => {
@@ -109,7 +107,6 @@ deleteThought({ params }, res) {
             res.status(404).json({mesage: 'no user found with that id!'});
             return;
         }
-        console.log(dbUserData);
         res.json(dbUserData);
     })
     .catch(err => {

@@ -1,4 +1,10 @@
 const dayjs = require ('dayjs');
 const today = dayjs();
 
-console.log(today.format("dddd, MMMM D YYYY h:mm a"));
+const dateFormat = () => {
+  return today.format("dddd, MMMM D YYYY h:mm a");
+};
+
+
+
+module.exports = dateFormat;
